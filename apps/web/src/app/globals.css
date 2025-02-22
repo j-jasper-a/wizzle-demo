@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+* {
+  @apply leading-none;
+}
+
+p {
+  @apply leading-tight;
+}
+
+body {
+  font-family: var(--font-main);
+  @apply text-neutral-800;
+}
+
+input,
+textarea {
+  @apply w-full rounded-xl border-2 bg-transparent px-4 py-2 focus:outline-blue-700;
+}
+
+.button-primary {
+  @apply w-full rounded-xl bg-blue-700 px-6 py-3 text-sm font-bold uppercase text-white;
+}
+
+.button-secondary {
+  @apply w-full rounded-xl border-2 px-5 py-2.5 text-sm font-bold uppercase;
+}
+
+.button-success {
+  @apply w-full rounded-xl bg-teal-700 px-6 py-3 text-sm font-bold uppercase text-white;
+}
+
+.option {
+  @apply w-full rounded-xl border-2 bg-blue-50 px-4 py-2;
+}
