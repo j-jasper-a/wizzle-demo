@@ -10,6 +10,10 @@ const UserResponseSchema = z.object({
   userId: z.string(),
   quizId: z.string(),
   choices: z.array(ChoiceSchema),
+  metadata: z.object({
+    createdAt: z.string(),
+    updatedAt: z.string(),
+  }),
 });
 
 type ChoiceType = z.infer<typeof ChoiceSchema>;

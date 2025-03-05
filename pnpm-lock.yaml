@@ -80,9 +80,6 @@ importers:
       '@eslint/eslintrc':
         specifier: ^3
         version: 3.3.0
-      '@types/node':
-        specifier: ^20
-        version: 20.17.19
       '@types/react':
         specifier: ^19
         version: 19.0.10

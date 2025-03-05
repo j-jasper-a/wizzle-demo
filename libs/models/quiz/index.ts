@@ -1,3 +1,4 @@
+import { create } from "domain";
 import { z } from "zod";
 
 const OptionSchema = z.object({
@@ -14,8 +15,13 @@ const QuestionSchema = z.object({
 const QuizSchema = z.object({
   id: z.string(),
   slug: z.string(),
+  creatorId: z.string(),
   title: z.string(),
   questions: z.array(QuestionSchema),
+  metadata: z.object({
+    createdAt: z.string(),
+    updatedAt: z.string(),
+  }),
 });
 
 type OptionType = z.infer<typeof OptionSchema>;
