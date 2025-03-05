@@ -1,3 +1,3 @@
 {
-  "conventionalCommits.scopes": ["monorepo", "frontend"]
+  "conventionalCommits.scopes": ["monorepo", "frontend", "libs"]
 }

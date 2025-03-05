@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import { Rubik as FontMain } from "next/font/google";
+import { Outfit as FontMain } from "next/font/google";
 import "./globals.css";
+import TopBar from "@/components/global/TopBar";
+import Footer from "@/components/global/Footer";
 
 const fontMain = FontMain({
   variable: "--font-main",
@@ -20,7 +22,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${fontMain.variable} antialiased`}>{children}</body>
+      <body className={`${fontMain.variable} antialiased`}>
+        <TopBar />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
