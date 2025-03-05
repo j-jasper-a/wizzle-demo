@@ -1,6 +1,10 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 import admin from "firebase-admin";
+import { quizzesRouter } from "./routes/quizzes.route";
+import dotenv from "dotenv";
+
+dotenv.config({ path: `.env.local` });
 
 const serviceAccount = {
   projectId: process.env.FIREBASE_PROJECT_ID,
@@ -21,6 +25,8 @@ const app = express();
 
 app.use(cors({ origin: true }));
 app.use(express.json());
+
+app.use("/quizzes", quizzesRouter);
 
 app.get("/", (request: Request, response: Response) => {
   response.status(200).json({
