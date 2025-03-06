@@ -8,6 +8,11 @@ import Subtitle from "@/components/reusable/Subtitle";
 
 const activeQuiz: QuizType = {
   id: "f7a9c6b2e4a7d5c8",
+  creatorId: "f7a9c6b2e4a7d5c8",
+  metadata: {
+    createdAt: "2023-08-01T00:00:00Z",
+    updatedAt: "2023-08-01T00:00:00Z",
+  },
   slug: "web-development-basics",
   title: "Web Development Basics",
   questions: [
@@ -96,6 +101,10 @@ const Home = () => {
       userId: "1",
       quizId: activeQuiz.id,
       choices,
+      metadata: {
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      },
     };
     console.log("User Response:", userResponse);
   };
