@@ -3,6 +3,7 @@ import cors from "cors";
 import admin from "firebase-admin";
 import { quizzesRouter } from "./routes/quizzes.route";
 import dotenv from "dotenv";
+import { usersRouter } from "./routes/users.route";
 
 dotenv.config({ path: `.env.local` });
 
@@ -27,6 +28,7 @@ app.use(cors({ origin: true }));
 app.use(express.json());
 
 app.use("/quizzes", quizzesRouter);
+app.use("/users", usersRouter);
 
 app.get("/", (request: Request, response: Response) => {
   response.status(200).json({

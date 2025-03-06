@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const UserSchema = z.object({
   id: z.string(),
-  userName: z.string(),
+  username: z.string(),
   avatarUrl: z.string(),
   metadata: z.object({
     createdAt: z.string(),
