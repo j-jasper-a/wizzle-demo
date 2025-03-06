@@ -7,70 +7,90 @@ import { LuTrash2 as RemoveIcon, LuPlus as AddIcon } from "react-icons/lu";
 import Overline from "@/components/reusable/Overline";
 import H2 from "@/components/reusable/H2";
 import Subtitle from "@/components/reusable/Subtitle";
+import dayjs from "dayjs";
 
-// Add meta title
-
-const Home = () => {
+const QuizCreator = () => {
   const [quizTitle, setQuizTitle] = useState("");
   const [questions, setQuestions] = useState<QuestionType[]>([]);
-  const [newQuestion, setNewQuestion] = useState("");
-  const [optionInputs, setOptionInputs] = useState<{ [key: string]: string }>(
-    {},
-  );
+  const [newQuestionText, setNewQuestionText] = useState("");
+  const [questionOptionInputs, setQuestionOptionInputs] = useState<{
+    [key: string]: string;
+  }>({});
 
   const handleAddQuestion = () => {
-    if (newQuestion.trim() !== "") {
+    if (newQuestionText.trim() !== "") {
       setQuestions([
         ...questions,
-        { id: generateId(), text: newQuestion.trim(), options: [] },
+        {
+          id: generateId(),
+          text: newQuestionText.trim(),
+          options: [],
+        },
       ]);
-      setNewQuestion("");
+      setNewQuestionText("");
     }
   };
 
   const handleAddOption = (questionId: string) => {
-    const optionText = optionInputs[questionId]?.trim();
-    if (optionText) {
-      setQuestions((prev) =>
-        prev.map((q) =>
-          q.id === questionId && q.options.length < 6
+    const newOptionText = questionOptionInputs[questionId]?.trim();
+    if (newOptionText) {
+      setQuestions((previousQuestions) =>
+        previousQuestions.map((currentQuestion) =>
+          currentQuestion.id === questionId &&
+          currentQuestion.options.length < 6
             ? {
-                ...q,
+                ...currentQuestion,
                 options: [
-                  ...q.options,
-                  { id: generateId(), text: optionText } as OptionType,
+                  ...currentQuestion.options,
+                  { id: generateId(), text: newOptionText } as OptionType,
                 ],
               }
-            : q,
+            : currentQuestion,
         ),
       );
-      setOptionInputs((prev) => ({ ...prev, [questionId]: "" }));
+      setQuestionOptionInputs((previousInputs) => ({
+        ...previousInputs,
+        [questionId]: "",
+      }));
     }
   };
 
   const handleRemoveOption = (questionId: string, optionId: string) => {
-    setQuestions((prev) =>
-      prev.map((q) =>
-        q.id === questionId
-          ? { ...q, options: q.options.filter((opt) => opt.id !== optionId) }
-          : q,
+    setQuestions((previousQuestions) =>
+      previousQuestions.map((currentQuestion) =>
+        currentQuestion.id === questionId
+          ? {
+              ...currentQuestion,
+              options: currentQuestion.options.filter(
+                (option) => option.id !== optionId,
+              ),
+            }
+          : currentQuestion,
       ),
     );
   };
 
   const handleRemoveQuestion = (questionId: string) => {
-    setQuestions((prev) => prev.filter((q) => q.id !== questionId));
+    setQuestions((previousQuestions) =>
+      previousQuestions.filter(
+        (currentQuestion) => currentQuestion.id !== questionId,
+      ),
+    );
   };
 
   const handleSubmitQuiz = () => {
-    const quiz: QuizType = {
+    const newQuiz: QuizType = {
       id: generateId(),
       slug: `quiz-${generateId(8)}`,
       title: quizTitle.trim() || "Untitled Quiz",
       questions,
+      creatorId: "f7a9c6b2e4a7d5c8",
+      metadata: {
+        createdAt: dayjs().toISOString(),
+      },
     };
 
-    console.log("Quiz Submitted", quiz);
+    console.log("Quiz Submitted", newQuiz);
   };
 
   return (
@@ -103,7 +123,7 @@ const Home = () => {
               <ul className="flex w-full flex-col gap-2">
                 {question.options.map((option) => (
                   <li key={option.id} className="flex items-center gap-2">
-                    <p className="option">{option.text}</p>
+                    <p className="option-text">{option.text}</p>
                     <button
                       type="button"
                       onClick={() => handleRemoveOption(question.id, option.id)}
@@ -117,10 +137,10 @@ const Home = () => {
                   <div className="flex items-center gap-2">
                     <input
                       type="text"
-                      value={optionInputs[question.id] || ""}
+                      value={questionOptionInputs[question.id] || ""}
                       onChange={(e) =>
-                        setOptionInputs((prev) => ({
-                          ...prev,
+                        setQuestionOptionInputs((previousInputs) => ({
+                          ...previousInputs,
                           [question.id]: e.target.value,
                         }))
                       }
@@ -149,15 +169,15 @@ const Home = () => {
           ))
         ) : (
           <p className="text-center text-sm text-neutral-400">
-            You have not added any question yet.
+            You have not added any questions yet.
           </p>
         )}
       </section>
 
       <section className="flex w-full flex-col gap-2 rounded-xl bg-white p-4">
         <textarea
-          value={newQuestion}
-          onChange={(e) => setNewQuestion(e.target.value)}
+          value={newQuestionText}
+          onChange={(e) => setNewQuestionText(e.target.value)}
           placeholder="Write a new question for your quiz."
           rows={3}
         />
@@ -183,4 +203,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default QuizCreator;

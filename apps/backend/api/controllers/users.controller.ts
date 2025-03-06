@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { db } from "..";
+import { UserSchema, UserType } from "@wizzle-demo/libs";
+import dayjs from "dayjs";
 
 export const getUsers = async (
   request: Request,
@@ -39,28 +41,6 @@ export const getUserById = async (
   }
 };
 
-export const getUserByUsername = async (
-  request: Request,
-  response: Response,
-  next: NextFunction
-) => {
-  try {
-    const username = request.params.username;
-    const userSnapshot = await db
-      .collection("users")
-      .where("username", "==", username)
-      .limit(1)
-      .get();
-
-    const userData = await Promise.all(
-      userSnapshot.docs.map((doc) => doc.data())
-    );
-    response.status(200).json(userData);
-  } catch (error) {
-    next(error);
-  }
-};
-
 export const createUser = async (
   request: Request,
   response: Response,
@@ -68,8 +48,24 @@ export const createUser = async (
 ) => {
   try {
     const userData = request.body;
-    const userDoc = await db.collection("users").add(userData);
-    response.status(201).json({ id: userDoc.id });
+    const validationResult = UserSchema.safeParse(userData);
+
+    if (!validationResult.success) {
+      response.status(400).json(validationResult.error);
+      return;
+    }
+
+    const preparedUserData: UserType = {
+      id: validationResult.data.id,
+      name: validationResult.data.name,
+      avatarUrl: validationResult.data.avatarUrl,
+      metadata: {
+        createdAt: dayjs().toISOString(),
+      },
+    };
+
+    await db.collection("users").doc(preparedUserData.id).set(preparedUserData);
+    response.status(201).json(preparedUserData);
   } catch (error) {
     next(error);
   }

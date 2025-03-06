@@ -17,6 +17,26 @@ export const getQuizzes = async (
   }
 };
 
+export const getQuizzesByUserId = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = request.params.userId;
+    const quizzesSnapshot = await db
+      .collection("quizzes")
+      .where("userId", "==", userId)
+      .get();
+    const quizzesData = await Promise.all(
+      quizzesSnapshot.docs.map((doc) => doc.data())
+    );
+    response.status(200).json(quizzesData);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getQuizById = async (
   request: Request,
   response: Response,

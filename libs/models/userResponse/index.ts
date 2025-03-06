@@ -11,8 +11,8 @@ const UserResponseSchema = z.object({
   quizId: z.string(),
   choices: z.array(ChoiceSchema),
   metadata: z.object({
-    createdAt: z.string(),
-    updatedAt: z.string(),
+    createdAt: z.string().datetime(),
+    updatedAt: z.string().datetime().optional(),
   }),
 });
 

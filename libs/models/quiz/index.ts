@@ -1,4 +1,3 @@
-import { create } from "domain";
 import { z } from "zod";
 
 const OptionSchema = z.object({
@@ -19,8 +18,8 @@ const QuizSchema = z.object({
   title: z.string(),
   questions: z.array(QuestionSchema),
   metadata: z.object({
-    createdAt: z.string(),
-    updatedAt: z.string(),
+    createdAt: z.string().datetime(),
+    updatedAt: z.string().datetime().optional(),
   }),
 });
 
