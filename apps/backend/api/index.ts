@@ -23,8 +23,8 @@ export const db = admin.firestore();
 export const auth = admin.auth();
 
 const app = express();
-
 app.use(cors({ origin: true }));
+
 app.use(express.json());
 
 app.use("/quizzes", quizzesRouter);
