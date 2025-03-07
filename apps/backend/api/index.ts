@@ -1,5 +1,4 @@
 import express, { Request, Response } from "express";
-import cors from "cors";
 import admin from "firebase-admin";
 import { quizzesRouter } from "./routes/quizzes.route";
 import dotenv from "dotenv";
@@ -22,8 +21,27 @@ if (!admin.apps.length) {
 export const db = admin.firestore();
 export const auth = admin.auth();
 
+const allowCors = (fn: Function) => async (req: Request, res: Response) => {
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET,OPTIONS,PATCH,DELETE,POST,PUT"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+  );
+
+  if (req.method === "OPTIONS") {
+    res.status(200).end();
+    return;
+  }
+
+  return await fn(req, res);
+};
+
 const app = express();
-app.use(cors({ origin: true }));
 
 app.use(express.json());
 
@@ -36,11 +54,7 @@ app.get("/", (request: Request, response: Response) => {
   });
 });
 
-if (process.env.NODE_ENV === "development") {
-  const port = 3000;
-  app.listen(port, () => {
-    console.log(`\n🚀 Server running at http://localhost:${port}`);
-  });
-}
+const handler = (request: Request, response: Response) =>
+  app(request, response);
 
-export default app;
+export default allowCors(handler);
