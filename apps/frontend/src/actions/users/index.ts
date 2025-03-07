@@ -3,10 +3,7 @@ import axios from "axios";
 
 export const createUser = async (user: UserType) => {
   try {
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_WIZZLE_API_URL}/users`,
-      user,
-    );
+    const response = await axios.post("/api/users", user);
 
     return response.data;
   } catch (error) {
@@ -16,9 +13,7 @@ export const createUser = async (user: UserType) => {
 
 export const getUserById = async (userId: string) => {
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_WIZZLE_API_URL}/users/${userId}`,
-    );
+    const response = await axios.get(`/api/users/${userId}`);
 
     return response.data;
   } catch (error) {
