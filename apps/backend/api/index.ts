@@ -3,6 +3,7 @@ import admin from "firebase-admin";
 import { quizzesRouter } from "./routes/quizzes.route";
 import dotenv from "dotenv";
 import { usersRouter } from "./routes/users.route";
+import cors from "cors";
 
 dotenv.config({ path: `.env.local` });
 
@@ -21,27 +22,9 @@ if (!admin.apps.length) {
 export const db = admin.firestore();
 export const auth = admin.auth();
 
-const allowCors = (fn: Function) => async (req: Request, res: Response) => {
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET,OPTIONS,PATCH,DELETE,POST,PUT"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
-  );
-
-  if (req.method === "OPTIONS") {
-    res.status(200).end();
-    return;
-  }
-
-  return await fn(req, res);
-};
-
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 
@@ -54,7 +37,4 @@ app.get("/", (request: Request, response: Response) => {
   });
 });
 
-const handler = (request: Request, response: Response) =>
-  app(request, response);
-
-export default allowCors(handler);
+export default app;
