@@ -14,9 +14,6 @@ const QuizCard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const response = await fetch(
-        //   "https://wizzle-demo-backend-git-dev-jasper-projects.vercel.app",
-        // );
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_WIZZLE_API_URL}`,
         );
