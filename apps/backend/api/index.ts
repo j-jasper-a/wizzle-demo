@@ -33,7 +33,7 @@ app.use("/users", usersRouter);
 
 app.get("/", (request: Request, response: Response) => {
   response.status(200).json({
-    message: "Hello from Firebase!",
+    message: "Hello from Firebase, Node 20!",
   });
 });
 
