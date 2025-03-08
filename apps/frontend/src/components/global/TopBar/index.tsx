@@ -4,6 +4,7 @@ import signInWithGoogle from "@/actions/auth/signInWithGoogle";
 import signOutUser from "@/actions/auth/signOut";
 import Logo from "@/components/reusable/Logo";
 import { auth } from "@/firebase/config";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 const TopBar = () => {
@@ -35,7 +36,16 @@ const TopBar = () => {
         <ul>
           <li>
             {currentUser ? (
-              <button onClick={handleSignOut}>Sign Out</button>
+              <div className="flex items-center gap-2">
+                <Image
+                  src={currentUser.photoURL || ""}
+                  alt="Profile"
+                  width={32}
+                  height={32}
+                  className="rounded-full"
+                />
+                <button onClick={handleSignOut}>Sign Out</button>
+              </div>
             ) : (
               <button onClick={handleSignIn}>Sign In</button>
             )}

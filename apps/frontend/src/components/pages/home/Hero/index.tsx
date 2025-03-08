@@ -14,10 +14,10 @@ const Hero = () => {
       <div className="relative z-10 mx-auto flex w-3/4 flex-col items-center gap-4">
         <div className="flex w-fit items-center gap-1 rounded-xl bg-blue-50 p-2 text-center text-sm font-medium text-blue-700 transition-colors duration-200 hover:bg-blue-100">
           <UpdateIcon />
-          <span>Update: The website is now live.</span>
+          <span>Update: The website is actively being updated.</span>
         </div>
         <H1>World&apos;s Easiest Way To Pick Your Brains</H1>
-        <p className="text-center text-xl">
+        <p className="text-center text-lg md:text-xl">
           Create quizzes effortlessly in seconds. Play quizzes seamlessly in
           moments.
         </p>
@@ -30,7 +30,7 @@ const Hero = () => {
             <span>Create Quiz</span>
           </Link>
           <Link
-            href="/quiz/test"
+            href="/explore"
             className="flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-8 py-4 font-medium text-white transition-colors duration-200 hover:bg-blue-700"
           >
             <PlayIcon />

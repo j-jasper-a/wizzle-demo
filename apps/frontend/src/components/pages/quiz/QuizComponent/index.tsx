@@ -6,53 +6,8 @@ import Overline from "@/components/reusable/Overline";
 import H2 from "@/components/reusable/H2";
 import Subtitle from "@/components/reusable/Subtitle";
 
-const activeQuiz: QuizType = {
-  id: "f7a9c6b2e4a7d5c8",
-  creatorId: "f7a9c6b2e4a7d5c8",
-  metadata: {
-    createdAt: "2023-08-01T00:00:00Z",
-    updatedAt: "2023-08-01T00:00:00Z",
-  },
-  slug: "web-development-basics",
-  title: "Web Development Basics",
-  questions: [
-    {
-      id: "b17f3c2e9d8a41e4",
-      text: "What does HTML stand for?",
-      options: [
-        { id: "3c8e5b2a41f74d1c", text: "Hyper Transfer Markup Language" },
-        { id: "2a5d8c9e41b74f3c", text: "Hyper Text Markup Language" },
-        { id: "1d7e8b2c5a3f4c9e", text: "High Tech Modern Language" },
-        {
-          id: "9e4b7c2d1f8a4a5c",
-          text: "Hyperlink and Text Management Language",
-        },
-      ],
-    },
-    {
-      id: "d8b2e7c41f9a3a6d",
-      text: "Which CSS property is used to change the text color of an element?",
-      options: [
-        { id: "b2e5d7a43c9f1f8a", text: "font-color" },
-        { id: "1f8c2a7e5d4b3c9f", text: "text-color" },
-        { id: "2d7b4c9e1a5f3f8c", text: "color" },
-        { id: "3c8e2b7a1d5f4f9c", text: "background-color" },
-      ],
-    },
-    {
-      id: "a7b2d8c41f9e3a6d",
-      text: "Which of the following is a JavaScript framework?",
-      options: [
-        { id: "1f8c2b7e5d4a3c9f", text: "Laravel" },
-        { id: "2d7b4c9e1a5f3f8c", text: "Django" },
-        { id: "3c8e2b7a1d5f4f9c", text: "React" },
-        { id: "4f1e8b2c5d7a3a9f", text: "Flask" },
-      ],
-    },
-  ],
-};
-
-const Home = () => {
+const QuizComponent = ({ quiz }: { quiz: QuizType }) => {
+  const activeQuiz = quiz;
   const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
   const [choices, setChoices] = useState<ChoiceType[]>([]);
   const isLastQuestion =
@@ -153,4 +108,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default QuizComponent;

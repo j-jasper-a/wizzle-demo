@@ -2,15 +2,23 @@
 
 import { useState } from "react";
 import { nanoid as generateId } from "nanoid";
-import { QuestionType, OptionType, QuizType } from "@wizzle-demo/libs";
+import {
+  QuestionType,
+  OptionType,
+  QuizType,
+  CategoryType,
+  CategorySchema,
+} from "@wizzle-demo/libs";
 import { LuTrash2 as RemoveIcon, LuPlus as AddIcon } from "react-icons/lu";
 import Overline from "@/components/reusable/Overline";
 import H2 from "@/components/reusable/H2";
 import Subtitle from "@/components/reusable/Subtitle";
 import dayjs from "dayjs";
+import { createQuiz } from "@/actions/quizzes";
 
 const QuizCreator = () => {
   const [quizTitle, setQuizTitle] = useState("");
+  const [quizCategory, setQuizCategory] = useState<CategoryType | "">("");
   const [questions, setQuestions] = useState<QuestionType[]>([]);
   const [newQuestionText, setNewQuestionText] = useState("");
   const [questionOptionInputs, setQuestionOptionInputs] = useState<{
@@ -79,23 +87,30 @@ const QuizCreator = () => {
   };
 
   const handleSubmitQuiz = () => {
+    if (!quizCategory || !CategorySchema.safeParse(quizCategory).success) {
+      alert("Please select a valid category.");
+      return;
+    }
+
     const newQuiz: QuizType = {
       id: generateId(),
-      slug: `quiz-${generateId(8)}`,
       title: quizTitle.trim() || "Untitled Quiz",
+      category: quizCategory as CategoryType,
       questions,
-      creatorId: "f7a9c6b2e4a7d5c8",
+      creatorId: "user",
       metadata: {
         createdAt: dayjs().toISOString(),
       },
     };
 
-    console.log("Quiz Submitted", newQuiz);
+    const quiz = createQuiz(newQuiz);
+
+    console.log("Quiz Submitted", quiz);
   };
 
   return (
     <main className="mx-auto flex max-w-screen-lg flex-col items-center gap-8 rounded-xl bg-blue-50 p-4">
-      <header className="w-full">
+      <header className="flex w-full flex-col gap-4">
         <textarea
           value={quizTitle}
           onChange={(e) => setQuizTitle(e.target.value)}
@@ -103,6 +118,18 @@ const QuizCreator = () => {
           className="text-2xl font-bold"
           rows={3}
         />
+        <select
+          value={quizCategory}
+          onChange={(e) => setQuizCategory(e.target.value as CategoryType)}
+          className="text-lg"
+        >
+          <option value="">Select a category</option>
+          {CategorySchema.options.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
       </header>
 
       <section className="flex w-full flex-col gap-4">
@@ -127,44 +154,13 @@ const QuizCreator = () => {
                     <button
                       type="button"
                       onClick={() => handleRemoveOption(question.id, option.id)}
-                      className="h-fit w-fit rounded-full bg-neutral-50 p-2 transition-colors duration-200 hover:bg-neutral-100"
+                      className="h-fit w-fit rounded-full bg-neutral-50 p-2 hover:bg-neutral-100"
                     >
                       <RemoveIcon className="text-lg" />
                     </button>
                   </li>
                 ))}
-                {question.options.length < 6 && (
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="text"
-                      value={questionOptionInputs[question.id] || ""}
-                      onChange={(e) =>
-                        setQuestionOptionInputs((previousInputs) => ({
-                          ...previousInputs,
-                          [question.id]: e.target.value,
-                        }))
-                      }
-                      placeholder="Add new option"
-                      className="h-fit"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => handleAddOption(question.id)}
-                      className="h-fit w-fit rounded-full bg-blue-50 p-2 transition-colors duration-200 hover:bg-blue-100"
-                    >
-                      <AddIcon className="text-lg" />
-                    </button>
-                  </div>
-                )}
               </ul>
-
-              <button
-                type="button"
-                onClick={() => handleRemoveQuestion(question.id)}
-                className="button-secondary"
-              >
-                Remove Question
-              </button>
             </article>
           ))
         ) : (
@@ -192,8 +188,8 @@ const QuizCreator = () => {
 
       {questions.length > 0 && (
         <button
-          type="button"
           onClick={handleSubmitQuiz}
+          type="button"
           className="button-success"
         >
           Launch Quiz
