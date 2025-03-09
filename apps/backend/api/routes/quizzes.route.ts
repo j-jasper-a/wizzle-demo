@@ -1,10 +1,10 @@
+import { Router } from "express";
 import {
   getQuizzes,
   getQuizById,
   getQuizzesByUserId,
   createQuiz,
-} from "../controllers/quizzes.controller";
-import { Router } from "express";
+} from "../controllers/quizzes.controller.js";
 
 const router = Router();
 
