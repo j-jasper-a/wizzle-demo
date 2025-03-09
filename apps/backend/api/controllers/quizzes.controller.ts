@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { auth, db } from "..";
 import { QuizSchema, QuizType } from "@wizzle-demo/libs";
 import dayjs from "dayjs";
 import { nanoid as generateId } from "nanoid";
+import { auth, db } from "../index.js";
 
 export const getQuizzes = async (
   request: Request,

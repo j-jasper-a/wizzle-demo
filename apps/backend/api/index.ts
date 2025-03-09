@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
 import admin from "firebase-admin";
-import { quizzesRouter } from "./routes/quizzes.route";
 import dotenv from "dotenv";
-import { usersRouter } from "./routes/users.route";
 import cors from "cors";
+import { quizzesRouter } from "./routes/quizzes.route.js";
+import { usersRouter } from "./routes/users.route.js";
 
 dotenv.config({ path: `.env.local` });
 

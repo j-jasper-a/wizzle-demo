@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import { db } from "..";
 import { UserSchema, UserType } from "@wizzle-demo/libs";
 import dayjs from "dayjs";
+import { db } from "../index.js";
 
 export const getUsers = async (
   request: Request,

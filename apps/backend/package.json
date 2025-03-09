@@ -2,6 +2,7 @@
   "name": "@wizzle-demo/backend",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "api/index.js",
   "scripts": {
     "build": "tsc",
