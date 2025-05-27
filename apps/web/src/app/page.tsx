@@ -1,10 +1,10 @@
 import Hero from "@/components/pages/home/Hero";
-import QuizGrid from "@/components/reusable/QuizGrid";
-import quizzes from "@/example/quizzes";
+import QuizGrid from "@/components/to-be-decided/QuizGrid";
+import quizzes from "@/data/quizzes";
 
 export default function Home() {
   return (
-    <main className="mx-auto flex max-w-screen-lg flex-col gap-8 px-4">
+    <main className="max-w-(--breakpoint-lg) mx-auto flex flex-col gap-8 px-4">
       <Hero />
       <QuizGrid quizzes={quizzes} />
     </main>

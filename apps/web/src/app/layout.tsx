@@ -1,8 +1,8 @@
+import "./globals.css";
+import Footer from "@/components/global/Footer";
+import TopBar from "@/components/global/TopBar";
 import type { Metadata } from "next";
 import { Outfit as FontMain } from "next/font/google";
-import "./globals.css";
-import TopBar from "@/components/global/TopBar";
-import Footer from "@/components/global/Footer";
 
 const fontMain = FontMain({
   variable: "--font-main",

@@ -2,15 +2,8 @@
 
 import QuizCard from "@/components/pages/quiz/QuizCard";
 import { QuizType } from "@wizzle-demo/shared";
-import { useSearchParams } from "next/navigation";
 
 const QuizGrid = ({ quizzes }: { quizzes: QuizType[] }) => {
-  const searchParams = useSearchParams();
-  const category = searchParams.get("category");
-  const filteredQuizzes = category
-    ? quizzes.filter((quiz) => quiz.category === category)
-    : quizzes;
-
   return (
     <div>
       <h2 className="mb-4 text-2xl font-semibold">Latest Quizzes</h2>

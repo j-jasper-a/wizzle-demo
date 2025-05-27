@@ -1,6 +1,6 @@
 const Home = () => {
   return (
-    <main className="mx-auto flex max-w-screen-lg flex-col gap-8 px-4">
+    <main className="max-w-(--breakpoint-lg) mx-auto flex flex-col gap-8 px-4">
       <h1>Sign In</h1>
     </main>
   );

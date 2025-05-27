@@ -1,4 +1,4 @@
-import H1 from "@/components/reusable/H1";
+import H1 from "@/components/to-be-decided/H1";
 import Link from "next/link";
 import {
   LuPen as CreateIcon,
@@ -9,7 +9,7 @@ import {
 const Hero = () => {
   return (
     <section className="relative flex h-full min-h-[80vh] flex-col items-center justify-center">
-      <div className="absolute inset-0 bg-[url('/assets/images/bg-3.svg')] bg-[size:512px] bg-repeat opacity-25"></div>
+      <div className="bg-size-[512px] absolute inset-0 bg-[url('/assets/images/bg-3.svg')] bg-repeat opacity-25"></div>
 
       <div className="relative z-10 mx-auto flex w-3/4 flex-col items-center gap-4">
         <div className="flex w-fit items-center gap-1 rounded-xl bg-blue-50 p-2 text-center text-sm font-medium text-blue-700 transition-colors duration-200 hover:bg-blue-100">

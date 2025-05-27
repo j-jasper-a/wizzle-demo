@@ -1,9 +1,9 @@
-import QuizGrid from "@/components/reusable/QuizGrid";
-import quizzes from "@/example/quizzes";
+import QuizGrid from "@/components/to-be-decided/QuizGrid";
+import quizzes from "@/data/quizzes";
 
 const Home = () => {
   return (
-    <div className="mx-auto max-w-screen-lg px-4">
+    <div className="max-w-(--breakpoint-lg) mx-auto px-4">
       <p className="text-center text-sm font-semibold uppercase text-blue-700">
         Latest Quizzes
       </p>

@@ -1,5 +1,5 @@
-import quizzes from "@/example/quizzes";
 import QuizComponent from "@/components/pages/quiz/QuizComponent";
+import quizzes from "@/data/quizzes";
 
 type PageProps = {
   params: Promise<{ quizId: string }>;

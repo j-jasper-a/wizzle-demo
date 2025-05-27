@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import H2 from "@/components/to-be-decided/H2";
+import Overline from "@/components/to-be-decided/Overline";
+import Subtitle from "@/components/to-be-decided/Subtitle";
 import { ChoiceType, QuizType, UserResponseType } from "@wizzle-demo/shared";
-import Overline from "@/components/reusable/Overline";
-import H2 from "@/components/reusable/H2";
-import Subtitle from "@/components/reusable/Subtitle";
+import { useState } from "react";
 
 const QuizComponent = ({ quiz }: { quiz: QuizType }) => {
   const activeQuiz = quiz;
@@ -65,7 +65,7 @@ const QuizComponent = ({ quiz }: { quiz: QuizType }) => {
   };
 
   return (
-    <main className="mx-auto flex max-w-screen-lg flex-col gap-4 p-4">
+    <main className="max-w-(--breakpoint-lg) mx-auto flex flex-col gap-4 p-4">
       <h1 className="text-center text-2xl font-bold text-white">
         {activeQuiz.title}
       </h1>
